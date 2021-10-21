@@ -1,0 +1,2 @@
+fn=$(basename $1).pdf
+dl $1 $fn

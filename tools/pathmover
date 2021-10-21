@@ -1,0 +1,34 @@
+#/bin/zsh
+getpath(){
+    echo "$(pwd)/$1" > /tmp/pathmover
+}
+mvpath(){
+    pathval=$(cat /tmp/pathmover)
+    echo $pathval
+    mv "$pathval" .
+}
+cppath(){
+    pathval=$(cat /tmp/pathmover)
+    echo $pathval
+    cp "$pathval" .
+}
+
+case "$1" in
+  (gp)
+    getpath $2
+    exit 0
+    ;;
+  (mv)
+    mvpath
+    exit 0
+    ;;
+  (cp)
+    cppath
+    exit 0
+  (*)
+    echo "Usage: $0 {gp|mv|cp}"
+    exit 2
+    ;;
+esac
+
+

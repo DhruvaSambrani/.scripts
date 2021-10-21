@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+onlyname=$(echo "$1" | cut -f 1 -d ".")
+ext=$(echo "$1" | cut -f 2 -d ".")
+
+echo "Copying \"$1\" as \"$onlyname""_complete.$ext\""
+
+echo "Splitting as \"$onlyname""_##.$ext\""
+ffmpeg -i "$1" -c copy -map 0 -segment_time 00:45:00 -f segment "$onlyname""_"%02d".$ext" -hide_banner -loglevel error
+
+mv "$1" "$onlyname""_complete.$ext"

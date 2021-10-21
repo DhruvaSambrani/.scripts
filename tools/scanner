@@ -1,0 +1,8 @@
+rm -rf dated
+mkdir dated 
+
+ls *.jpg | awk '{print "convert "$0" -auto-orient -set colorspace Gray -separate -average -brightness-contrast 10x40 -gravity  NorthWest -pointsize 100 -fill red -strokewidth 5 -annotate +100+300 %[exif:DateTimeOriginal] dated/"$0}' | sh
+
+convert -compress jpeg -quality 85 dated/*.jpg  out.pdf
+
+xdg-open out.pdf

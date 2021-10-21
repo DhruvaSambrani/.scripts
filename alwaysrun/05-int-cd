@@ -1,0 +1,26 @@
+cdwin () {
+    cdfuzzy ~/winhome/ $1
+}
+
+cdp () {
+    cdfuzzy ~/Programs $1
+}
+
+cdwork () {
+    cdfuzzy "/mnt/g/My Drive/My Stuff" "$1"
+}
+
+cdfuzzy () {
+    NAME=$(bfs -L "$1" ! -path "*.git*" -a ! -path "*AppData*" | fzf -q "$2")
+    cdfile "$NAME"
+}
+
+cdfile() {
+    NAME=$1
+    if [ -f "$NAME" ];
+    then
+        NAME=$(dirname "$1")
+    fi
+    cd "$NAME"
+}
+

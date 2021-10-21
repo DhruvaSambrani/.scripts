@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+nameonly=$(echo "$1" | cut -f 1 -d '.')
+ext=$(echo "$1" | cut -f 2 -d '.')
+
+echo "Compressing $1 to $nameonly _compressed.$ext"
+
+ffmpeg -i "$1" -vcodec libx264 -crf $2 "$nameonly""_compressed.""$ext" -hide_banner -loglevel error -hwaccel opencl 

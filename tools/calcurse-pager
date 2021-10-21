@@ -1,0 +1,10 @@
+#! /bin/zsh
+
+CONTENT=$(<$1)
+if [[ $CONTENT =~ https:\/\/.*zoom.* ]] then
+    xdg-open "$CONTENT" &
+    disown
+else 
+    less $1
+fi
+

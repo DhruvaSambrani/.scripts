@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+git add -A
+msg=$(git status --porcelain)
+[[ ! -z $1 ]] && msg="$1"
+if [[ $1 == "-" ]]
+then
+    git commit -aq
+else
+    git commit -aqm "$msg"
+fi
+git push -q

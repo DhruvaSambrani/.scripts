@@ -1,0 +1,58 @@
+#!/bin/zsh
+
+[[ -z $NOTES ]] && NOTES=~/notes
+
+iscmd() { command -v >&- "$@" }
+
+notesgit() {
+    cd $NOTES
+    git $@ 
+}
+
+cap() {
+	cd $NOTES
+	[[ ! -z "$@" ]] && echo "" >> QuickNote.md && echo "$@" >> QuickNote.md
+	gcap
+}
+
+notesedit() {
+    [[ -z $EDITOR ]] && EDITOR=edit
+    $EDITOR $(sel $1) ${@:2}
+}
+sel() {
+    query="-q $@"
+    [[ -z $query ]] && query=""
+	
+    iscmd "cat" && batcmd="cat"
+    iscmd "batcat" && batcmd="batcat --color=always --terminal-width -10 -p {}"
+    iscmd "bat" && batcmd="bat --color=always --terminal-width -10 -p {}"
+    file=$(find -L $NOTES -path "*.git*" -prune -false -o -type f  | fzf --preview "$batcmd" --preview-window=up:80%:wrap $query)
+
+    [[ -z $file ]] && return
+	echo $file
+}
+
+new() {
+    filename="$@"
+    [[ -z $filename ]] && filename="$(date +%Y-%m-%d\-%H%M%S).md"
+    sensible-editor $NOTES/$filename
+}
+
+show() {
+	tree -sht $NOTES
+}
+
+
+case $1 in
+	git) notesgit ${@:2};;
+	cap) cap ${@:2} ;;
+    sel) sel ${@:2} ;;
+    *at) sel ${@:2} ;;
+    ls) show ;;
+    *vi*) notesedit ${@:2} ;;
+    new) new ${@:2} ;;
+    pull) notesgit pull;;
+    "") show ;;
+    *) ${@:1:${#@}-1} $(sel ${@[-1]}) ;;
+esac
+

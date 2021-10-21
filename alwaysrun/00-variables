@@ -1,0 +1,7 @@
+export PATH=.:$PATH:~/.local/bin:~/.scripts/tools:/usr/games:$HOME/go/bin:$HOME/gems/bin:$HOME/.yarn/bin
+export NOTES=~/notes
+export SAMBAR=$NOTES/todo.txt
+export EDITOR=nvim
+export PAGER="less --mouse -rJs"
+export GEM_HOME=$HOME/gems
+export CALCURSE_PAGER=~/.scripts/tools/calcurse-pager

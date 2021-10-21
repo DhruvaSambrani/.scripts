@@ -1,0 +1,4 @@
+export BROWSER=/usr/bin/firefox
+export PATH=$PATH:/home/dhruva/Application
+
+alias zathura="zathura --fork --mode fullscreen"

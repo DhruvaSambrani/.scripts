@@ -1,0 +1,11 @@
+# windows aliases
+alias cls=clear
+alias start="powershell.exe -NonInteractive -NoLogo"
+alias exp=explorer.exe
+alias code="start code"
+alias spt=~/winhome/Downloads/spt.exe
+alias winjulia="start julia.exe --project "
+
+export PATH=~/.yarn/bin:$PATH
+
+# source x11rc

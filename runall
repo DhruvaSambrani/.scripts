@@ -1,0 +1,6 @@
+#!/bin/zsh
+for file in $(dirname $0)/alwaysrun/*; do
+    source $file
+done
+
+source $(dirname $0)/alwaysrun/sys_specific/$(uname -r)

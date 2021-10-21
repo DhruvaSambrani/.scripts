@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+if [[ ! -f ~/.dailyquote ]] || [[ $(( $(date +%s) - $(stat -c %Y ~/.dailyquote) > 14400)) -eq 1 ]] ;
+then
+    rssdata="$(curl -s https://www.brainyquote.com/link/quotefu.rss -o-)"
+    author="$(echo $rssdata | xmlstarlet sel -T -t -v /rss/channel/item/title 2> /dev/null | head -1)"
+    desc="$(echo $rssdata | xmlstarlet sel -T -t -v /rss/channel/item/description 2> /dev/null | head -1 )"
+    text="$desc""\n""$author"
+    if [[ -f ~/.dailyquote ]] then
+        echo "fetched as file was $(( ($(date +%s) - $(stat -c %Y ~/.dailyquote)) / 3600 ))h old"
+    else
+        echo "no file found"
+    fi
+    echo $text | fold -w 35 -s | boxes -a c -p v1h2 -d stone > ~/.dailyquote
+fi 
+
+lolcat ~/.dailyquote -F 0.2 

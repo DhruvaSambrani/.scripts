@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+cd ~/notes
+[[ ! -z "$@" ]] && echo "" >> QuickNote.md && echo "$@" >> QuickNote.md
+gcap
