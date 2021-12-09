@@ -3,19 +3,19 @@ getpath(){
     echo "$(pwd)/$1" > /tmp/pathmover
 }
 mvpath(){
-    pathval=$(cat /tmp/pathmover)
+    pathval="$(cat /tmp/pathmover)"
     echo $pathval
     mv "$pathval" .
 }
 cppath(){
-    pathval=$(cat /tmp/pathmover)
+    pathval="$(cat /tmp/pathmover)"
     echo $pathval
     cp "$pathval" .
 }
 
 case "$1" in
   (gp)
-    getpath $2
+    getpath "$2"
     exit 0
     ;;
   (mv)

@@ -1,0 +1,77 @@
+#! /usr/bin/env python3
+
+import subprocess
+import re
+import argparse
+
+def runbtctl(command):
+    cmd = ["bluetoothctl"] 
+    cmd.extend(command)
+    s = subprocess.run(cmd, stdout=subprocess.PIPE)
+    return s.stdout.decode().strip()
+
+def ispoweron(): 
+    devstate = runbtctl(["show"])
+    return re.search("Powered: (.*)", devstate).group(1) == "yes"
+
+def isrfalive():
+    rfstate = subprocess.run(["rfkill", "list", "bluetooth", "-o", "SOFT"], stdout=subprocess.PIPE)
+    return rfstate.stdout.decode().split("\n")[1] == "unblocked"
+
+def getpaired():
+    devs = runbtctl(["devices"]).split("\n")
+    retval = []
+    print(devs)
+    for dev in devs:
+        uuid = dev.split(" ")[1]
+        name = dev.split(" ")[2]
+        info = runbtctl(["info", uuid])
+        stat = re.search("Connected: (.*)", info).group(1) == "yes"
+        retval.append((name+" | "+uuid, stat))
+    return retval
+
+def buildoptions():
+    options=["quit"]
+    if isrfalive():
+        options.append("rfkill block")
+        if ispoweron():
+            options.extend(["power off"])
+            for dev in getpaired():
+                options.append(dev[0]+("    ✓" if dev[1] else "    *"))
+        else:
+            options.append("power on")
+    else:
+        options.append("rfkill unblock")
+    options.reverse()
+    return options
+
+def evalselection(selection):
+    if selection == "" or selection == "quit":
+        return False
+    if "rfkill" in selection:
+        cmd = ["pkexec"]
+        cmd.extend(selection.split())
+        cmd.append("bluetooth")
+        subprocess.run(cmd)
+        return "unblock" in selection
+    elif "power" in selection:
+        runbtctl(selection.split())
+        return "on" in selection
+    else:
+        cmd = "disconnect" if "✓" in selection else "connect"
+        uuid = selection.split("    ")[0].split(" | ")[1]
+        runbtctl([cmd, uuid])
+        return "✓" in selection
+
+def mainloop(dmenucmd):
+    s = subprocess.run(dmenucmd, input="\n".join(buildoptions()).encode(), stdout=subprocess.PIPE)
+    selection = s.stdout.decode().strip()
+    return evalselection(selection)
+
+parser = argparse.ArgumentParser(description='dmenu script for bluetoothctl')
+parser.add_argument('dmenucmd', metavar='dmenucmd', nargs='?',
+        help='The dmenu command to run. (default: `dmenu -l 10`)', default="dmenu -l 10")
+
+while mainloop(parser.parse_args().dmenucmd.split()):
+    continue
+

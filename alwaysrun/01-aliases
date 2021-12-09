@@ -16,8 +16,11 @@ alias celar=clear
 alias celary=clear
 alias vim=nvim
 alias vi=nvim
-alias ll="ls -A --blocks=size,date,name --date \"+%H:%M %d-%b-%Y\""
+alias ll="ls -A --blocks=size,date,name --date \"+%H:%M %d-%b-%Y\" "
 alias \?=man
 alias \?\?=which
 alias qu="source ~/.scripts/daily-quote"
+alias sudo="sudo "
 alias feh="feh -x "
+alias zathura="zathura --fork"
+alias mail="himalaya-mail "

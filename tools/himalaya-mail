@@ -1,0 +1,13 @@
+#! /bin/zsh
+mail(){
+    export FZF_DEFAULT_COMMAND="himalaya -a $1 list -s 200" &&
+        fzf --bind "space:execute(himalaya -a $1 read {1} -t html > /tmp/test.html && $BROWSER /tmp/test.html&),ctrl-r:execute(himalaya reply {1})+reload($FZF_DEFAULT_COMMAND),del:execute-silent(himalaya -a $1 delete {1})+reload($FZF_DEFAULT_COMMAND),ctrl-f:execute(himalaya -a $1 forward {1})+reload($FZF_DEFAULT_COMMAND),ctrl-a:execute(himalaya -a $1 attachments {1})" \
+        --preview "himalaya -a $1 read {1} -t html | elinks -dump -dump-width 60" \
+        --header-lines=2\
+        --layout=reverse
+}
+
+box=$1
+[[ -n $box ]] || box="gmail"
+mail $box
+

@@ -2,9 +2,8 @@
 
 CONTENT=$(<$1)
 if [[ $CONTENT =~ https:\/\/.*zoom.* ]] then
-    xdg-open "$CONTENT" &
+    exo-open --launch WebBrowser "$CONTENT" &
     disown
 else 
     less $1
 fi
-

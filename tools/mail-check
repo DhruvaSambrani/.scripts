@@ -1,0 +1,2 @@
+hi="$(himalaya -a iiser -o json | jq ".response[].flags" | grep "\[\]" | wc -l) $(himalaya -a gmail -o json | jq ".response[].flags" | grep "\[\]" | wc -l)"
+echo $hi 
