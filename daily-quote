@@ -6,7 +6,7 @@ then
     author="$(echo $rssdata | xmlstarlet sel -T -t -v /rss/channel/item/title 2> /dev/null | head -1)"
     desc=$(echo $rssdata | xmlstarlet sel -T -t -v /rss/channel/item/description 2> /dev/null | head -1 | sed -E "s/\"(.*)\"/\1/g")
     text="$desc""\n""$author"
-    echo $text | fold -w 35 -s | boxes -a c -p v1h2 -d stone > ~/.dailyquote
+    echo $text | fold -w 35 -s | python ~/.scripts/tools/boxes.py > ~/.dailyquote
 fi 
 
 lolcat ~/.dailyquote -F 0.6 -p 30000 
