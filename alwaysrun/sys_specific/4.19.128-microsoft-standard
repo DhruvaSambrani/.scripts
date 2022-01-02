@@ -6,6 +6,7 @@ alias code="start code"
 alias spt=~/winhome/Downloads/spt.exe
 alias winjulia="start julia.exe --project "
 
+export PROGRAMS=~/winhome/Programs
 export PATH=~/.yarn/bin:$PATH
 
 # source x11rc
