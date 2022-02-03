@@ -1,4 +1,0 @@
-#! /bin/zsh
-
-tee /tmp/tempmail.html < /dev/stdin
-surf /tmp/tempmail.html
