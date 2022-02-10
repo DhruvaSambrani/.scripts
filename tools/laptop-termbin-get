@@ -1,0 +1,27 @@
+#! /bin/zsh
+
+getdata(){
+    content=$(curl -s "https://termbin.com/$1" | gpg --decrypt)
+    notify-send "Received" "$content"
+    echo $content | xclip -in -selection clipboard 
+}
+
+senddata(){
+    content=$(echo $1 | gpg --encrypt -a -r dhruvasambrani19@gmail.com | nc termbin.com 9999)
+    notify-send "Sent" "$content"
+}
+
+if [[ -z $1 ]] then;
+    output=$(yad --title Help --form --field=Action:CB --field="Text":TXT --height=400 --width=600 --center --escape "GET\!SEND")
+    link=$(echo $output | cut -d "|" -f 2) 
+    choice=$(echo $output | cut -d "|" -f 1)
+else
+    choice=$1
+    link=$2
+fi
+
+case $choice in
+    GET) getdata "$link";;
+    SEND) senddata "$link";;
+esac
+
