@@ -1,3 +1,0 @@
-export BROWSER=/usr/bin/firefox
-export PATH=$PATH:/home/dhruva/Application
-export PROGRAMS=~/Programs
