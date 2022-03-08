@@ -1,20 +1,20 @@
 getdata(){
-content=$(curl -s "https://termbin.com/$1" | gpg --decrypt)
-termux-notification \
--t "Termbin share" -c "$content" --sound \
---button1 "Copy content" --button1-action "termux-clipboard-set $content" \
---button2 "Share" --button2-action "echo $content | termux-share -c text/* -a send"
+    content=$(curl -s "https://termbin.com/$1" | gpg --decrypt)
+    termux-notification \
+    -t "Termbin share" -c "$content" --sound \
+    --button1 "Copy content" --button1-action "termux-clipboard-set $content" \
+    --button2 "Share" --button2-action "echo $content | termux-share -c text/* -a send"
 }
 
 senddata(){
-content=$(echo $1 | gpg --encrypt -a -r dhruvasambrani19@gmail.com | nc termbin.com 9999)
-termux-toast $content
-echo $content > ~/.termbin-last
+    content=$(echo $1 | gpg --encrypt -a -r dhruvasambrani19@gmail.com | nc termbin.com 9999)
+    termux-toast $content
+    echo $content > ~/.termbin-last
 }
 
 choice=$(termux-dialog radio -v "Get, Send, Last" -t "What to do" | jq .text -r)
 
-link=$(termux-dialog | jq .text -r)
+[[ $choice -ne "" ]] && link=$(termux-dialog | jq .text -r)
 
 case $choice in
     Get) getdata "$link";;
