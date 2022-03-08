@@ -9,14 +9,16 @@ termux-notification \
 senddata(){
 content=$(echo $1 | gpg --encrypt -a -r dhruvasambrani19@gmail.com | nc termbin.com 9999)
 termux-toast $content
+echo $content > ~/.termbin-last
 }
 
-choice=$(termux-dialog radio -v "Get, Send" -t "What to do" | jq .text -r)
+choice=$(termux-dialog radio -v "Get, Send, Last" -t "What to do" | jq .text -r)
 
 link=$(termux-dialog | jq .text -r)
 
 case $choice in
     Get) getdata "$link";;
     Send) senddata "$link";;
+    Last) cat ~/.termbin-last | termux-toast ;;
 esac
 

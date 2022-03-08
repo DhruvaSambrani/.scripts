@@ -1,4 +1,5 @@
 export BROWSER=/usr/bin/firefox
 export PATH=$PATH:/home/dhruva/Applications
 export PROGRAMS=~/Programs
+export WORK=~/idrive/My\ Stuff
 alias ssh="kitty +kitten ssh "

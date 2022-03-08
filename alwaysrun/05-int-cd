@@ -1,13 +1,13 @@
 cdwin () {
-    cdfuzzy ~/winhome/ $1
+    cdfuzzy ~/winhome/ "$@"
 }
 
 cdp () {
-    cdfuzzy $PROGRAMS $1
+    cdfuzzy "$PROGRAMS" "$@"
 }
 
 cdwork () {
-    cdfuzzy "/mnt/g/My Drive/My Stuff" "$1"
+    cdfuzzy "$WORK" "$@"
 }
 
 cdfuzzy () {
