@@ -1,3 +1,5 @@
+#! /bin/zsh
+
 getdata(){
     content=$(curl -s "https://termbin.com/$1" | gpg --decrypt)
     termux-notification \
