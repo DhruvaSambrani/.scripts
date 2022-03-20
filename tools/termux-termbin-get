@@ -16,7 +16,7 @@ senddata(){
 
 choice=$(termux-dialog radio -v "Get, Send, Last" -t "What to do" | jq .text -r)
 
-[[ $choice -ne "" ]] && link=$(termux-dialog | jq .text -r)
+[[ -z "$choice" ]] && link=$(termux-dialog | jq .text -r)
 
 case $choice in
     Get) getdata "$link";;

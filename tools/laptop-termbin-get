@@ -18,7 +18,7 @@ lastdata(){
 }
 
 if [[ -z $1 ]] then;
-    output=$(yad --title Help --form --field=Action:CB --field="Text":TXT --height=400 --width=600 --center --escape "GET\!SEND\!LAST")
+    output=$(yad --title "Termbin Get" --form --field=Action:CB --field="Text":TXT --height=400 --width=600 --center --escape "GET\!SEND\!LAST")
     link=$(echo $output | cut -d "|" -f 2) 
     choice=$(echo $output | cut -d "|" -f 1)
 else
