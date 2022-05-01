@@ -12,6 +12,7 @@ alias ls=lsd
 alias mail="himalaya-mail "
 alias \?=man
 alias mpm="mpv --no-video "
+alias newsboat="newsboat -r"
 alias pip=pip3
 alias pm=pathmover
 alias pprb="~/.paperbuilder/src/PaperBuilder.py"

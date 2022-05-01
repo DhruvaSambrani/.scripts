@@ -1,2 +1,0 @@
-out=$(xdg-user-dir DOWNLOAD)/$2
-curl -A "Mozilla" -#L $1 -o $out

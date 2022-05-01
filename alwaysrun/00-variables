@@ -1,4 +1,4 @@
-export PATH=.:$PATH:~/.local/bin:~/.scripts/tools:/usr/games:$HOME/go/bin:$HOME/gems/bin:$HOME/.yarn/bin
+export PATH=.:$PATH:~/.local/bin:~/.scripts/tools:/usr/games:$HOME/go/bin:$HOME/gems/bin:$HOME/.yarn/bin:$HOME/.cargo/bin
 export NOTES=~/notes
 export SAMBAR=$NOTES/todo.txt
 export EDITOR=nvim
