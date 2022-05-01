@@ -1,0 +1,13 @@
+#! /bin/sh
+
+case "$1" in
+    *biblio*) mpv "$1"
+    ;;
+    *github*) gh repo view "$1"
+    ;;
+    *.mp3) mpv "$1"
+    ;;
+    *) elinks "$1"
+    ;;
+esac
+

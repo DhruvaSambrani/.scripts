@@ -2,7 +2,7 @@
 
 CONTENT=$(<$1)
 if [[ $CONTENT =~ https:\/\/.*zoom.* ]] then
-    exo-open --launch WebBrowser "$CONTENT" 2> /dev/null &
+    firefox "$CONTENT" 2> /dev/null &
     disown
 else 
     less $1
