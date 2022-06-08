@@ -1,13 +1,13 @@
 #! /bin/sh
 
 case "$1" in
-    *biblio*) mpv "$1"
+    *biblio* | *.mp3 | *youtube*) mpv "$1"
     ;;
     *github*) gh repo view "$1"
     ;;
-    *.mp3) mpv "$1"
+    *.png) feh "$1"
     ;;
-    *) elinks "$1"
+    *) lynx -accept-all-cookies "$1"
     ;;
 esac
 

@@ -1,0 +1,3 @@
+notebook=$(bfs $1 -type d -name "\.zk" | xargs -I{} dirname "{}" | fzf --preview="zk -W {} list --limit 10 -f oneline" --preview-window up:60%)
+echo Now in $notebook
+[[ -z "$notebook" ]] || cd "$notebook"

@@ -1,5 +1,4 @@
 alias cal=calcurse
-alias calcurse="calcurse -C ~/.calcurse -D ~/.calcurse"
 alias cd..="cd .."
 alias cd~="cd ~"
 alias celar=clear
@@ -25,4 +24,6 @@ alias sudo="sudo "
 alias vim=nvim
 alias vi=nvim
 alias \?\?=which
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias zathura="zathura --fork"
+alias zks="source \zks"
