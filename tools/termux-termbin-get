@@ -1,4 +1,4 @@
-#! /bin/zsh
+#!/data/data/com.termux/files/usr/bin/zsh
 
 getdata(){
     content=$(curl -s "https://termbin.com/$1" | gpg --decrypt)
