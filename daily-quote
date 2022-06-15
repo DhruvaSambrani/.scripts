@@ -4,8 +4,8 @@ function get_brainyquote(){
   rssdata="$(curl -s https://www.brainyquote.com/link/quotefu.rss -o-)"
   author="$(echo $rssdata | xmlstarlet sel -T -t -v /rss/channel/item/title 2> /dev/null | head -1)"
   desc=$(echo $rssdata | xmlstarlet sel -T -t -v /rss/channel/item/description 2> /dev/null | head -1 | sed -E "s/\"(.*)\"/\1/g")
-  text="$desc""\n""$author"
-  echo $text
+  text="$desc""\n""- $author -"
+  echo "$text"
 }
 
 function get_nointernet(){
@@ -22,15 +22,14 @@ function get_quotesday() {
 
 function get_quote() {
   if [[ "$(nmcli networking connectivity check)" != "none" ]] then; 
-    get_brainyquote | write_tofile
+    write_tofile "$(get_brainyquote)"
   elif [[ ! -f ~/.dailyquote ]]; then
-    get_nointernet | write_tofile
+    write_tofile "$(get_nointernet)"
   fi
 }
 
 function write_tofile(){
-  read text;
-  echo $text | fold -w 35 -s | python ~/.scripts/tools/boxes.py > ~/.dailyquote
+  echo "$@" | fold -w 35 -s | python ~/.scripts/tools/boxes.py > ~/.dailyquote
 }
 
 if [[ ! -f ~/.dailyquote ]] || [[ $(( $(date +%s) - $(stat -c %Y ~/.dailyquote) > 14400)) -eq 1 ]];
