@@ -1,6 +1,6 @@
 export PATH=.:$PATH:$HOME/.local/bin:$HOME/.scripts/tools:/usr/games:$HOME/go/bin:$HOME/gems/bin:$HOME/.yarn/bin:$HOME/.cargo/bin
-export NOTES=$HOME/notes
-export SAMBAR=$NOTES/todo.txt
+export NOTES=$HOME/Nextcloud/Notes
+export SAMBAR=$NOTES/todo
 export EDITOR=nvim
 export PAGER="less --mouse -rJs"
 export GEM_HOME=$HOME/gems

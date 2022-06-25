@@ -7,7 +7,7 @@ case "$1" in
     ;;
     *.png) feh "$1"
     ;;
-    *) lynx -accept-all-cookies "$1"
+    *) w3m -o inline_img_protocol=4 "$1"
     ;;
 esac
 
